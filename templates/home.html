@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container p-3 my-3 border">
+  <div class="row">
+    <div class="col-sm-8"><h4>Tasks:</h4></div>
+    <div class="col-sm-4"><h5><a href="{% url 'task_new' %}">Add task</a></h5></div>
+  </div>
+</div>
+
+{% for task in object_list %}
+<div class="list-group-flush">
+  <div class="row">
+    <div class="col"><h4>* {{ task.title }}</h4></div>
+    <div class="col"><a href="{% url 'task_delete' task.pk %}"><button class="btn btn-danger" type="submit">remove</button></a>
+      <a href="{% url 'task_edit' task.pk %}"><button class="btn btn-primary" type="submit">Edit</button></a></div>
+  </div>
+</div>
+
+<br>
+{% endfor %}
+{% endblock content %}
