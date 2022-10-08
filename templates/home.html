@@ -7,16 +7,40 @@
     <div class="col-sm-4"><h5><a href="{% url 'task_new' %}">Add task</a></h5></div>
   </div>
 </div>
-
+<h3>Uncompleted tasks (tasks still in time range):</h3>
+<hr>
+{% if object_list %}
+  {% for task in object_list %}
+    {% if not task.is_completed and not task.task_expired %}
+      <div class="list-group-flush">
+        <div class="row">
+          <div class="col"><h4><a href="{% url 'task_detail' task.pk %}">* {{ task.title }}</a></h4></div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    <hr>
+<h3>Completed:</h3>
+<hr>
 {% for task in object_list %}
-<div class="list-group-flush">
-  <div class="row">
-    <div class="col"><h4>* {{ task.title }}</h4></div>
-    <div class="col"><a href="{% url 'task_delete' task.pk %}"><button class="btn btn-danger" type="submit">remove</button></a>
-      <a href="{% url 'task_edit' task.pk %}"><button class="btn btn-primary" type="submit">Edit</button></a></div>
-  </div>
-</div>
-
-<br>
-{% endfor %}
+  {% if task.is_completed %}
+    <div class="list-group-flush">
+      <div class="row">
+        <div class="col"><h4><a href="{% url 'task_detail' task.pk %}">* {{ task.title }}</a></h4></div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <hr>
+  <h3>Expired tasks (tasks that are incomplete and that have their time expired):</h3>
+  <hr>
+  {% for task in object_list %}
+    {% if task.task_expired and not task.is_completed %}
+        <div class="list-group-flush">
+          <div class="row">
+            <div class="col"><h4><a href="{% url 'task_detail' task.pk %}">* {{ task.title }}</a></h4></div>
+        </div>
+    {% endif %}
+    {% endfor %}
+{% else %}
+<p>You have no Tasks</p>
+{% endif %}
 {% endblock content %}

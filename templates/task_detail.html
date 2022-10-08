@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ object.title }}</h2>
+
+{% if not object.is_completed %}
+  {% if object.task_expired %}
+    <p><strong>Task time expired!</strong></p>
+    <p><strong>Update task details to specify completion.</strong></p>
+    <br>
+    <p>Complete: <strong>{{ object.is_completed }}</strong></p>
+    <div class="col"><a href="{% url 'task_delete' task.pk %}"><button class="btn btn-danger" type="submit">remove</button></a>
+      <a href="{% url 'task_edit' task.pk %}"><button class="btn btn-primary" type="submit">Edit</button></a>
+    </div>
+  {% else %}
+      <p>Time due: {{ object.time_due }}</p>
+      <p>Complete: <strong>{{ object.is_completed }}</strong></p>
+      <div class="col"><a href="{% url 'task_delete' task.pk %}"><button class="btn btn-danger" type="submit">remove</button></a>
+        <a href="{% url 'task_edit' task.pk %}"><button class="btn btn-primary" type="submit">Edit</button></a>
+      </div>
+  {% endif %}
+
+
+{% else %}
+
+  <p>Completed!</p>
+  <p>Complete: <strong>{{ object.is_completed }}</strong></p>
+  <div class="col"><a href="{% url 'task_delete' task.pk %}"><button class="btn btn-danger" type="submit">remove</button></a>
+    <a href="{% url 'task_edit' task.pk %}"><button class="btn btn-primary" type="submit">Edit</button></a>
+  </div>
+{% endif %}
+{% endblock content %}
