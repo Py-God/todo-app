@@ -22,6 +22,9 @@ A robust, full-stack task management application built with Django. Designed to 
 * **Frontend:** HTML5, CSS3, Bootstrap 5
 * **Deployment:** Heroku (utilizing `gunicorn` and `whitenoise` for static files)
 
+## 📸 Screenshots
+![App Dashboard](./dashboard.png)
+
 ## 💻 Local Installation & Setup
 To run this project locally, follow these steps:
 
